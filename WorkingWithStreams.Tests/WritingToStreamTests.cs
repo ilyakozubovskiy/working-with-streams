@@ -93,7 +93,7 @@ namespace WorkingWithStreams.Tests
 
             // Assert
             outputStream.Seek(0, SeekOrigin.Begin);
-            using var outputReader = new StreamReader(outputStream);
+            using var outputReader = new StreamReader(outputStream, Encoding.UTF8, false, -1, true);
             char[] actualChars = new char[buffer.Length];
             outputReader.Read(actualChars, 0, actualChars.Length);
 
