@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -10,26 +11,50 @@ namespace WorkingWithStreams
     {
         public static string ReadAllStreamContent(StreamReader streamReader)
         {
-            // TODO #4-1. Implement the method by reading all content as a string.
-            throw new NotImplementedException();
+            return streamReader.ReadToEnd();
         }
 
         public static string[] ReadLineByLine(StreamReader streamReader)
         {
-            // TODO #4-2. Implement the method by reading lines of characters as a string array.
-            throw new NotImplementedException();
+            string line;
+            List<string> strings = new List<string>();
+
+            while ((line = streamReader.ReadLine()) != null)
+            {
+                strings.Add(line);
+            }
+
+            return strings.ToArray();
         }
 
         public static StringBuilder ReadOnlyLettersAndNumbers(StreamReader streamReader)
         {
-            // TODO #4-3. Implement the method by reading only letters and numbers, and write the characters to a StringBuilder.
-            throw new NotImplementedException();
+            int digit;
+            StringBuilder lettersAndNumbers = new StringBuilder();
+
+            while ((digit = streamReader.Peek()) != -1 && char.IsLetterOrDigit((char)digit))
+            {
+                lettersAndNumbers.Append((char)digit);
+                streamReader.Read();
+            }
+
+            return lettersAndNumbers;
         }
 
         public static char[][] ReadAsCharArrays(StreamReader streamReader, int arraySize)
         {
-            // TODO #4-4. Implement the method by returning an underlying string that sliced into jagged array of characters according to arraySize.
-            throw new NotImplementedException();
+            List<char[]> arrays = new List<char[]>();
+
+            while (streamReader.Peek() != -1)
+            {
+                char[] array = new char[arraySize];
+                int number = streamReader.Read(array, 0, arraySize);
+
+                Array.Resize(ref array, number);
+                arrays.Add(array);
+            }
+
+            return arrays.ToArray();
         }
     }
 }
